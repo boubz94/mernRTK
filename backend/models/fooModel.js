@@ -14,4 +14,4 @@ const fooSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.models("Foo", fooSchema);
+module.exports = mongoose.model("Foo", fooSchema);
