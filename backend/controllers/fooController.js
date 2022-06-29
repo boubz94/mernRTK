@@ -5,7 +5,7 @@ const Foo = require("../models/fooModel.js");
 // get
 const getFoo = asyncHandler(async (req, res) => {
   const foo = await Foo.find();
-  res.status(200).json({ message: "je suis dans le controllers" });
+  res.status(200).json(foo);
 });
 
 // add
