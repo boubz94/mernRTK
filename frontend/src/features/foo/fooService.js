@@ -11,9 +11,14 @@ const getFoo = async () => {
   const response = await axios.get(API_URL);
   return response.data;
 };
+const deleteFoo = async (fooId) => {
+  const response = await axios.delete(API_URL + fooId);
+  return response.data;
+};
 const fooService = {
   createFoo,
   getFoo,
+  deleteFoo,
 };
 
 export default fooService;

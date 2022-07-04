@@ -37,6 +37,22 @@ export const getFoo = createAsyncThunk("foo/getAll", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+export const deleteFoo = createAsyncThunk(
+  "foo/delete",
+  async (id, thunkAPI) => {
+    try {
+      return await fooService.deleteFoo(id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const fooSlice = createSlice({
   name: "foo",
@@ -70,7 +86,20 @@ export const fooSlice = createSlice({
       .addCase(createFoo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals.push(action.payload);
+        state.foo.push(action.payload);
+      })
+      .addCase(deleteFoo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteFoo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteFoo.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.foo = state.foo.filter((foo) => foo._id !== action.payload.id);
       });
   },
 });

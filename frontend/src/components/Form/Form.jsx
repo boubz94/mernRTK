@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { createFoo } from "../../features/foo/fooSlice";
 
 function Form() {
-  const [text, setText] = useState({ text: "", text2: "" });
+  const [text, setText] = useState({ text: " ", text2: " " });
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
@@ -21,7 +21,7 @@ function Form() {
             type="text"
             name="text"
             id="text"
-            value={text.text}
+            value={text.text || ""}
             onChange={(e) => setText({ ...text, text: e.target.value })}
           />
         </div>
@@ -31,7 +31,7 @@ function Form() {
             type="text"
             name="text"
             id="text"
-            value={text.text2}
+            value={text.text2 || ""}
             onChange={(e) => setText({ ...text, text2: e.target.value })}
           />
         </div>
